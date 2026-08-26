@@ -16,11 +16,10 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { BeforeAfterSlider } from './components/BeforeAfterSlider';
-import { AIChatWidget } from './components/AIChatWidget';
 
 // Import local images for correct Vite asset bundling and routing
-import beforeImg from './before after/644538789_122102477601281017_3429104214592932577_n.jpg';
-import afterImg from './before after/643914570_122102477913281017_567108257160612630_n.jpg';
+import beforeImg from './before after/IMG_0394.jpeg';
+import afterImg from './before after/IMG_3423.jpeg';
 import pic3 from './before after/Pics/pics 3.jpg';
 import pic4 from './before after/Pics/pics 4.jpg';
 import pic5 from './before after/Pics/pics5.jpg';
@@ -61,6 +60,8 @@ const SERVICES = [
 ];
 
 const PORTFOLIO = [
+  beforeImg,
+  afterImg,
   pic3,
   pic4,
   pic5,
@@ -71,22 +72,22 @@ const PORTFOLIO = [
 const TESTIMONIALS = [
   {
     name: "Caleb Thompson",
-    role: "Estate Development",
-    content: "J Green Landscaping transformed our yard. Their lawn maintenance is precise, punctual, and keeping our turf looking completely pristine.",
+    role: "Homeowner",
+    content: "Justin and his team transformed our front and back yard. Their lawn mowing and crisp border edging are always on time, and our grass has never looked this green and healthy.",
     stars: 5,
     location: "Northeast Philadelphia, PA"
   },
   {
     name: "Sarah Jenkins",
-    role: "Landscape Designer",
-    content: "Their attention to aeration, grass nutrition, and seasonal prep is outstanding. A reliable crew who truly understands turf health.",
+    role: "Homeowner",
+    content: "They did an incredible job clearing out our overgrown flower beds and shaping all of our shrubs. Reliable, polite, and they left our property spotless after the seasonal cleanup.",
     stars: 5,
     location: "North Philadelphia, PA"
   },
   {
     name: "Marcus Miller",
     role: "Homeowner",
-    content: "Professional, dependable, and highly detailed. They maintain our property's lawn to an absolute resort-style finish week in and week out.",
+    content: "As a homeowner, finding dependable lawn care is tough. J Green Landscaping is punctual, thorough, and delivers a clean, immaculate finish every single visit.",
     stars: 5,
     location: "Philadelphia, PA"
   }
@@ -96,14 +97,6 @@ export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isQuoteOpen, setIsQuoteOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [contactSubmitted, setContactSubmitted] = useState(false);
-  const [modalSubmitted, setModalSubmitted] = useState(false);
-  const [quoteData, setQuoteData] = useState({
-    name: '',
-    email: '',
-    service: '',
-    message: ''
-  });
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -113,21 +106,6 @@ export default function App() {
 
   const closeQuote = () => {
     setIsQuoteOpen(false);
-    setModalSubmitted(false);
-  };
-
-  const handleContactSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setContactSubmitted(true);
-    setTimeout(() => setContactSubmitted(false), 5000);
-  };
-
-  const handleModalSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setModalSubmitted(true);
-    setTimeout(() => {
-      closeQuote();
-    }, 2000);
   };
 
   return (
@@ -296,14 +274,14 @@ export default function App() {
             </div>
           </div>
 
-          <div className="mt-40 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+          <div className="mt-28 sm:mt-36 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4">
             {PORTFOLIO.map((img, i) => (
               <motion.div 
                 key={i}
-                whileHover={{ y: -10 }}
-                className="aspect-square bg-white/5 overflow-hidden filter grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-700 cursor-crosshair"
+                whileHover={{ y: -8, scale: 1.02 }}
+                className="aspect-square rounded-lg bg-white/5 overflow-hidden border border-white/10 opacity-75 hover:opacity-100 transition-all duration-500 shadow-md hover:shadow-xl cursor-pointer"
               >
-                <img src={img} className="w-full h-full object-cover" alt="Portfolio" />
+                <img src={img} className="w-full h-full object-cover transition-transform duration-700 hover:scale-110" alt="Portfolio" />
               </motion.div>
             ))}
           </div>
@@ -387,46 +365,22 @@ export default function App() {
             </div>
           </div>
 
-          <div className="bg-brand-cream text-brand-green-dark p-12 lg:p-20 relative">
+          <div className="bg-brand-cream text-brand-green-dark p-4 sm:p-6 lg:p-8 relative rounded-xl shadow-2xl border border-brand-green-leaf/20 flex flex-col">
             <div className="absolute top-0 right-0 w-32 h-1 bg-brand-green-light"></div>
-            {contactSubmitted ? (
-              <motion.div 
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="py-16 text-center space-y-4"
-              >
-                <div className="w-16 h-16 rounded-full bg-brand-green-light/20 text-brand-green-leaf flex items-center justify-center mx-auto">
-                  <CheckCircle2 size={36} />
-                </div>
-                <h3 className="text-3xl font-display font-bold">Inquiry Received</h3>
-                <p className="text-brand-green-dark/70 text-sm max-w-sm mx-auto">
-                  Thank you! Justin and the J Green team will review your project details and get back to you promptly at (267) 973-1605.
-                </p>
-              </motion.div>
-            ) : (
-              <form className="space-y-10" onSubmit={handleContactSubmit}>
-                <div className="space-y-2">
-                  <label className="text-[9px] uppercase tracking-widest font-black opacity-40">Your Name</label>
-                  <input required className="w-full bg-transparent border-b border-brand-green-dark/10 py-4 focus:border-brand-green-light outline-none transition-all placeholder:text-brand-green-dark/20" placeholder="Full Name" />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[9px] uppercase tracking-widest font-black opacity-40">Email Address</label>
-                  <input required type="email" className="w-full bg-transparent border-b border-brand-green-dark/10 py-4 focus:border-brand-green-light outline-none transition-all placeholder:text-brand-green-dark/20" placeholder="email@example.com" />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[9px] uppercase tracking-widest font-black opacity-40">Desired Transformation</label>
-                  <select className="w-full bg-transparent border-b border-brand-green-dark/10 py-4 focus:border-brand-green-light outline-none transition-all">
-                    <option>Select a service...</option>
-                    {SERVICES.map(s => <option key={s.title}>{s.title}</option>)}
-                  </select>
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[9px] uppercase tracking-widest font-black opacity-40">Project Vision</label>
-                  <textarea required rows={4} className="w-full bg-transparent border-b border-brand-green-dark/10 py-4 focus:border-brand-green-light outline-none transition-all placeholder:text-brand-green-dark/20" placeholder="Share your dreams for the space..."></textarea>
-                </div>
-                <button type="submit" className="btn-primary w-full py-6 text-sm">Send Inquiry</button>
-              </form>
-            )}
+            <div className="mb-4">
+              <span className="text-[10px] uppercase tracking-widest font-black text-brand-green-leaf block">Live Booking Calendar</span>
+              <p className="text-xs text-brand-green-dark/70 mt-1">Select an available date and time below to schedule your consultation with Justin.</p>
+            </div>
+            <div className="w-full flex-grow min-h-[650px] bg-white rounded-lg overflow-hidden border border-brand-green-dark/10 shadow-inner">
+              <iframe
+                src="https://calendly.com/ortizjustin1738/30min?back=1&month=2026-08"
+                width="100%"
+                height="100%"
+                frameBorder="0"
+                title="Book with J Green Landscaping on Calendly"
+                className="w-full min-h-[650px] h-full"
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -471,65 +425,36 @@ export default function App() {
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
-              className="relative w-full max-w-2xl bg-brand-cream p-12 lg:p-20 shadow-2xl"
+              className="relative w-full max-w-4xl bg-brand-cream p-6 sm:p-10 shadow-2xl rounded-2xl max-h-[90vh] flex flex-col border border-brand-green-leaf/20"
             >
               <button 
                 onClick={closeQuote}
-                className="absolute top-8 right-8 text-brand-green-dark/40 hover:text-brand-green-dark transition-colors"
+                className="absolute top-6 right-6 text-brand-green-dark/40 hover:text-brand-green-dark transition-colors z-10"
                 id="close-quote-btn"
               >
                 <X size={24} />
               </button>
               
-              <div className="space-y-12">
-                <div className="space-y-6 text-center">
-                  <span className="text-[10px] font-bold uppercase tracking-[0.5em] text-brand-green-leaf mb-4 block underline decoration-brand-green-light underline-offset-8">Consultation</span>
-                  <h3 className="text-5xl font-display">Inquire for Design</h3>
-                </div>
+              <div className="space-y-4 text-center mb-4">
+                <span className="text-[10px] font-bold uppercase tracking-[0.5em] text-brand-green-leaf block">Direct Booking</span>
+                <h3 className="text-3xl sm:text-4xl font-display">Schedule Your Consultation</h3>
+                <p className="text-xs text-brand-green-dark/70 max-w-md mx-auto">Select a convenient date and time directly on our live calendar with Justin.</p>
+              </div>
 
-                {modalSubmitted ? (
-                  <motion.div 
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="py-12 text-center space-y-4"
-                  >
-                    <div className="w-16 h-16 rounded-full bg-brand-green-light/20 text-brand-green-leaf flex items-center justify-center mx-auto">
-                      <CheckCircle2 size={36} />
-                    </div>
-                    <h3 className="text-3xl font-display font-bold">Request Submitted</h3>
-                    <p className="text-brand-green-dark/70 text-sm max-w-sm mx-auto">
-                      Thank you! We have received your consultation request and will reach out shortly.
-                    </p>
-                  </motion.div>
-                ) : (
-                  <form className="space-y-10" onSubmit={handleModalSubmit}>
-                    <div className="space-y-2">
-                      <label className="text-[9px] uppercase tracking-widest font-black opacity-40">Your Name</label>
-                      <input required className="w-full bg-transparent border-b border-brand-green-dark/10 py-4 focus:border-brand-green-light outline-none transition-all" placeholder="Full Name" />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-[9px] uppercase tracking-widest font-black opacity-40">Email Address</label>
-                      <input required type="email" className="w-full bg-transparent border-b border-brand-green-dark/10 py-4 focus:border-brand-green-light outline-none transition-all" placeholder="email@example.com" />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-[9px] uppercase tracking-widest font-black opacity-40">Service Needed</label>
-                      <select className="w-full bg-transparent border-b border-brand-green-dark/10 py-4 focus:border-brand-green-light outline-none transition-all">
-                        {SERVICES.map(s => <option key={s.title}>{s.title}</option>)}
-                      </select>
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-[9px] uppercase tracking-widest font-black opacity-40">Vision Overview</label>
-                      <textarea required rows={4} className="w-full bg-transparent border-b border-brand-green-dark/10 py-4 focus:border-brand-green-light outline-none transition-all" placeholder="Tell us about your property..."></textarea>
-                    </div>
-                    <button type="submit" className="btn-primary w-full py-6 text-md">Request Personal Evaluation</button>
-                  </form>
-                )}
+              <div className="w-full flex-grow min-h-[580px] bg-white rounded-xl overflow-hidden border border-brand-green-dark/10 shadow-inner">
+                <iframe
+                  src="https://calendly.com/ortizjustin1738/30min?back=1&month=2026-08"
+                  width="100%"
+                  height="100%"
+                  frameBorder="0"
+                  title="Book Consultation on Calendly"
+                  className="w-full min-h-[580px] h-full"
+                />
               </div>
             </motion.div>
           </div>
         )}
       </AnimatePresence>
-      <AIChatWidget />
     </div>
   );
 }
