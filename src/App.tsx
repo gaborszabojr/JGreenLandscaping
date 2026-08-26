@@ -165,47 +165,80 @@ export default function App() {
         </nav>
       </header>
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
+      <section className="relative min-h-[92vh] md:min-h-screen flex items-center pt-28 pb-16 md:pt-36 md:pb-24 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img 
             src="https://images.unsplash.com/photo-1590059345090-df4cc2541300?auto=format&fit=crop&q=80&w=2000" 
             alt="Luxury Paving" 
-            className="w-full h-full object-cover grayscale-[20%] opacity-40"
+            className="w-full h-full object-cover grayscale-[15%] opacity-35"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-brand-cream via-brand-cream/80 to-brand-cream"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-brand-cream/90 via-brand-cream/80 to-brand-cream"></div>
         </div>
 
         <div className="max-w-7xl mx-auto px-6 relative z-10 w-full">
           <motion.div 
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="max-w-4xl"
           >
-            <span className="text-[10px] font-bold uppercase tracking-[0.5em] text-brand-green-leaf mb-6 block">Dedicated Lawn & Landscape Care</span>
-            <h1 className="text-7xl md:text-[10rem] font-display font-bold leading-[0.85] mb-10 tracking-tight text-brand-green-dark">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-green-dark/10 border border-brand-green-dark/15 mb-6 text-brand-green-dark">
+              <span className="w-2 h-2 rounded-full bg-brand-green-leaf animate-pulse"></span>
+              <span className="text-[10px] font-bold uppercase tracking-[0.25em]">Professional Lawn & Landscape Care</span>
+            </div>
+            
+            <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-[7.5rem] font-display font-bold leading-[0.95] mb-8 tracking-tight text-brand-green-dark">
               Flawless <br />
-              <span className="italic font-normal">Lawns.</span>
+              <span className="italic font-normal text-brand-green-leaf">Lawns.</span>
             </h1>
-            <p className="text-xl md:text-2xl text-brand-green-dark/70 font-light max-w-2xl leading-relaxed mb-12 border-l-2 border-brand-green-light pl-8">
+            
+            <p className="text-lg sm:text-xl md:text-2xl text-brand-green-dark/80 font-light max-w-2xl leading-relaxed mb-10 border-l-2 border-brand-green-light pl-6">
               We specialize in the science of vibrant green grass and beautiful landscape design. 
-              From precision lawn care to expert sod installations, we cultivate estates that flourish.
+              From precision lawn mowing to seasonal cleanups, we cultivate outdoor spaces that flourish.
             </p>
-            <div className="flex flex-col sm:flex-row gap-6">
-              <button className="btn-primary" onClick={() => setIsQuoteOpen(true)}>Inquire for Design</button>
-              <button className="btn-secondary" onClick={() => document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' })}>View Portfolio</button>
+            
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 sm:gap-6 mb-10">
+              <button className="btn-primary text-center" onClick={() => setIsQuoteOpen(true)}>
+                Schedule Consultation
+              </button>
+              <button className="btn-secondary text-center" onClick={() => document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' })}>
+                View Portfolio
+              </button>
+            </div>
+
+            {/* Quick Contact & Trust Bar */}
+            <div className="pt-6 border-t border-brand-green-dark/10 flex flex-wrap items-center gap-y-4 gap-x-8 text-xs font-medium text-brand-green-dark/80">
+              <div className="flex items-center gap-2">
+                <Phone size={14} className="text-brand-green-leaf" />
+                <a href="tel:2679731605" className="hover:text-brand-green-leaf font-bold transition-colors">
+                  (267) 973-1605
+                </a>
+              </div>
+              <div className="flex items-center gap-2">
+                <MapPin size={14} className="text-brand-green-leaf" />
+                <span>North & NE Philadelphia, PA</span>
+              </div>
+              <div className="flex items-center gap-1.5 text-amber-600 font-semibold">
+                <div className="flex">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} size={13} className="fill-amber-500 text-amber-500" />
+                  ))}
+                </div>
+                <span className="text-brand-green-dark/70 ml-1">5.0 Star Rated</span>
+              </div>
             </div>
           </motion.div>
         </div>
 
-        {/* Floating Scroll Indicator */}
+        {/* Floating Scroll Indicator (desktop only) */}
         <motion.div 
-          animate={{ y: [0, 10, 0] }}
+          animate={{ y: [0, 8, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-30"
+          className="hidden lg:flex absolute bottom-8 left-1/2 -translate-x-1/2 flex-col items-center gap-2 opacity-40 hover:opacity-100 transition-opacity cursor-pointer"
+          onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
         >
-          <span className="text-[8px] uppercase tracking-widest font-bold">Scroll</span>
-          <div className="w-[1px] h-12 bg-brand-green-dark"></div>
+          <span className="text-[9px] uppercase tracking-widest font-bold text-brand-green-dark">Explore</span>
+          <div className="w-[1px] h-10 bg-brand-green-dark"></div>
         </motion.div>
       </section>
 
@@ -322,97 +355,172 @@ export default function App() {
         </div>
       </section>
 
-      {/* Booking Form Overlay Redesign */}
+      {/* Booking & Contact Section */}
       <section id="contact" className="section-padding bg-brand-green-dark text-white relative overflow-hidden">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-32 relative z-10">
-          <div className="space-y-12">
-            <div className="space-y-6">
-              <span className="text-[10px] font-bold uppercase tracking-[0.5em] text-brand-green-light block">Begin the Dialogue</span>
-              <h2 className="text-6xl md:text-8xl leading-none">Your Space, <br /><span className="italic font-normal">Reimagined.</span></h2>
-              <p className="text-brand-silver/50 max-w-sm italic">
-                Schedule a master design consultation. We'll walk your terrain together and discuss the latent potential of your landscape.
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 relative z-10 items-start">
+          <div className="lg:col-span-5 space-y-10">
+            <div className="space-y-4">
+              <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-brand-green-light block">Direct Scheduling</span>
+              <h2 className="text-5xl sm:text-6xl md:text-7xl leading-[1.05]">Your Space, <br /><span className="italic font-normal text-brand-green-light">Reimagined.</span></h2>
+              <p className="text-brand-silver/70 text-sm sm:text-base leading-relaxed">
+                Schedule your personal consultation directly with Justin. We'll evaluate your property's terrain and discuss a customized maintenance or transformation plan.
               </p>
             </div>
 
-            <div className="space-y-8 pt-10">
-              <a href="tel:2679731605" className="flex items-start gap-6 group">
-                <div className="w-12 h-12 border border-white/10 rounded-full flex items-center justify-center group-hover:bg-brand-green-light transition-all">
-                  <Phone size={18} />
+            <div className="space-y-6 pt-4">
+              <a href="tel:2679731605" className="flex items-center gap-5 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-brand-green-light transition-all group">
+                <div className="w-12 h-12 rounded-lg bg-brand-green-leaf/30 text-brand-green-light flex items-center justify-center flex-shrink-0 group-hover:bg-brand-green-light group-hover:text-brand-green-dark transition-all">
+                  <Phone size={20} />
                 </div>
                 <div>
-                  <p className="text-[10px] uppercase tracking-widest opacity-40 font-bold mb-1 font-mono">Client Support</p>
-                  <p className="text-xl font-display group-hover:text-brand-green-light transition-colors">(267) 973-1605</p>
+                  <p className="text-[10px] uppercase tracking-widest text-brand-silver/60 font-bold font-mono">Call / Text Direct</p>
+                  <p className="text-lg sm:text-xl font-display font-bold group-hover:text-brand-green-light transition-colors">(267) 973-1605</p>
                 </div>
               </a>
-              <a href="mailto:Ortizjustin1738@gmail.com" className="flex items-start gap-6 group">
-                <div className="w-12 h-12 border border-white/10 rounded-full flex items-center justify-center group-hover:bg-brand-green-light transition-all">
-                  <Mail size={18} />
+
+              <a href="mailto:Ortizjustin1738@gmail.com" className="flex items-center gap-5 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-brand-green-light transition-all group">
+                <div className="w-12 h-12 rounded-lg bg-brand-green-leaf/30 text-brand-green-light flex items-center justify-center flex-shrink-0 group-hover:bg-brand-green-light group-hover:text-brand-green-dark transition-all">
+                  <Mail size={20} />
                 </div>
-                <div>
-                  <p className="text-[10px] uppercase tracking-widest opacity-40 font-bold mb-1 font-mono">Inquiries</p>
-                  <p className="text-xl font-display group-hover:text-brand-green-light transition-colors">Ortizjustin1738@gmail.com</p>
+                <div className="overflow-hidden">
+                  <p className="text-[10px] uppercase tracking-widest text-brand-silver/60 font-bold font-mono">Direct Email</p>
+                  <p className="text-base sm:text-lg font-display font-bold truncate group-hover:text-brand-green-light transition-colors">Ortizjustin1738@gmail.com</p>
                 </div>
               </a>
-              <div className="flex items-start gap-6 group">
-                <div className="w-12 h-12 border border-white/10 rounded-full flex items-center justify-center group-hover:bg-brand-green-light transition-all">
-                  <MapPin size={18} />
+
+              <div className="flex items-center gap-5 p-4 rounded-xl bg-white/5 border border-white/10">
+                <div className="w-12 h-12 rounded-lg bg-brand-green-leaf/30 text-brand-green-light flex items-center justify-center flex-shrink-0">
+                  <MapPin size={20} />
                 </div>
                 <div>
-                  <p className="text-[10px] uppercase tracking-widest opacity-40 font-bold mb-1 font-mono">Service Area</p>
-                  <p className="text-xl font-display">North & Northeast Philadelphia, PA</p>
+                  <p className="text-[10px] uppercase tracking-widest text-brand-silver/60 font-bold font-mono">Service Area</p>
+                  <p className="text-base sm:text-lg font-display font-medium">North & Northeast Philadelphia, PA</p>
                 </div>
               </div>
+
+              <a 
+                href="https://www.instagram.com/jgreenlandscaping/?hl=en"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-5 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-brand-green-light transition-all group"
+              >
+                <div className="w-12 h-12 rounded-lg bg-brand-green-leaf/30 text-brand-green-light flex items-center justify-center flex-shrink-0 group-hover:bg-brand-green-light group-hover:text-brand-green-dark transition-all">
+                  <Instagram size={20} />
+                </div>
+                <div>
+                  <p className="text-[10px] uppercase tracking-widest text-brand-silver/60 font-bold font-mono">Follow On Instagram</p>
+                  <p className="text-base sm:text-lg font-display font-bold group-hover:text-brand-green-light transition-colors">@jgreenlandscaping</p>
+                </div>
+              </a>
             </div>
           </div>
 
-          <div className="bg-brand-cream text-brand-green-dark p-4 sm:p-6 lg:p-8 relative rounded-xl shadow-2xl border border-brand-green-leaf/20 flex flex-col">
-            <div className="absolute top-0 right-0 w-32 h-1 bg-brand-green-light"></div>
+          <div className="lg:col-span-7 bg-brand-cream text-brand-green-dark p-4 sm:p-6 lg:p-8 relative rounded-2xl shadow-2xl border border-brand-green-leaf/20 flex flex-col">
+            <div className="absolute top-0 right-0 w-32 h-1.5 bg-brand-green-leaf rounded-tr-2xl"></div>
             <div className="mb-4">
-              <span className="text-[10px] uppercase tracking-widest font-black text-brand-green-leaf block">Live Booking Calendar</span>
-              <p className="text-xs text-brand-green-dark/70 mt-1">Select an available date and time below to schedule your consultation with Justin.</p>
+              <span className="text-[10px] uppercase tracking-widest font-black text-brand-green-leaf block">Instant Calendar Appointment</span>
+              <h3 className="text-2xl font-display font-bold text-brand-green-dark mt-0.5">Pick a Date & Time</h3>
+              <p className="text-xs text-brand-green-dark/70 mt-1">Book your 30-minute property walkthrough or lawn evaluation directly on our live calendar.</p>
             </div>
-            <div className="w-full flex-grow min-h-[650px] bg-white rounded-lg overflow-hidden border border-brand-green-dark/10 shadow-inner">
+            <div className="w-full flex-grow min-h-[660px] bg-white rounded-xl overflow-hidden border border-brand-green-dark/10 shadow-inner">
               <iframe
                 src="https://calendly.com/ortizjustin1738/30min?back=1&month=2026-08"
                 width="100%"
                 height="100%"
                 frameBorder="0"
                 title="Book with J Green Landscaping on Calendly"
-                className="w-full min-h-[650px] h-full"
+                className="w-full min-h-[660px] h-full"
               />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Simple Footer */}
-      <footer className="bg-brand-cream border-t border-brand-silver py-20 text-brand-green-dark">
-        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-10">
-          <div className="flex flex-col items-center md:items-start">
-            <span className="text-xl font-display font-bold">J GREEN LANDSCAPING</span>
-            <span className="text-[8px] uppercase tracking-[0.4em] opacity-40">Premium Lawn & Landscape Services</span>
-          </div>
-          
-          <div className="flex gap-12 text-[10px] uppercase font-bold tracking-widest opacity-40">
-            <a href="#" className="hover:opacity-100 transition-opacity">Privacy</a>
-            <a href="#" className="hover:opacity-100 transition-opacity">Terms</a>
-            <a href="#" className="hover:opacity-100 transition-opacity">Careers</a>
+      {/* Structured Comprehensive Footer */}
+      <footer className="bg-brand-cream border-t border-brand-silver pt-16 pb-12 text-brand-green-dark">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-12 pb-14 border-b border-brand-green-dark/10">
+            {/* Col 1: Brand & Overview */}
+            <div className="lg:col-span-4 space-y-4">
+              <div className="flex flex-col">
+                <span className="text-2xl font-display font-bold tracking-tight text-brand-green-dark">J GREEN LANDSCAPING</span>
+                <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-brand-green-leaf mt-1">Premium Lawn & Landscape Services</span>
+              </div>
+              <p className="text-xs text-brand-green-dark/70 leading-relaxed pr-4">
+                Professional residential lawn mowing, crisp border edging, shrub grooming, and seasonal property cleanups across Philadelphia.
+              </p>
+              <div className="pt-2">
+                <a 
+                  href="https://www.instagram.com/jgreenlandscaping/?hl=en" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-brand-green-dark text-white text-xs font-semibold hover:bg-brand-green-leaf transition-colors shadow-sm"
+                >
+                  <Instagram size={14} />
+                  <span>@jgreenlandscaping</span>
+                </a>
+              </div>
+            </div>
+
+            {/* Col 2: Quick Links */}
+            <div className="lg:col-span-2 space-y-3">
+              <p className="text-[10px] uppercase tracking-[0.25em] font-bold text-brand-green-dark font-mono">Navigation</p>
+              <ul className="space-y-2 text-xs font-medium text-brand-green-dark/75">
+                <li><a href="#services" className="hover:text-brand-green-leaf transition-colors">Services</a></li>
+                <li><a href="#portfolio" className="hover:text-brand-green-leaf transition-colors">Before & After</a></li>
+                <li><a href="#portfolio" className="hover:text-brand-green-leaf transition-colors">Gallery</a></li>
+                <li><a href="#testimonials" className="hover:text-brand-green-leaf transition-colors">Client Reviews</a></li>
+                <li><a href="#contact" className="hover:text-brand-green-leaf transition-colors">Live Booking</a></li>
+              </ul>
+            </div>
+
+            {/* Col 3: Core Services */}
+            <div className="lg:col-span-3 space-y-3">
+              <p className="text-[10px] uppercase tracking-[0.25em] font-bold text-brand-green-dark font-mono">Our Services</p>
+              <ul className="space-y-2 text-xs font-medium text-brand-green-dark/75">
+                <li>Lawn Mowing & Border Edging</li>
+                <li>Hedge & Shrub Sculpting</li>
+                <li>Spring & Fall Yard Cleanups</li>
+                <li>Sod Installation & Soil Care</li>
+                <li>Mulch Application & Weed Control</li>
+              </ul>
+            </div>
+
+            {/* Col 4: Contact & Service Area */}
+            <div className="lg:col-span-3 space-y-3">
+              <p className="text-[10px] uppercase tracking-[0.25em] font-bold text-brand-green-dark font-mono">Direct Contact</p>
+              <div className="space-y-2.5 text-xs text-brand-green-dark/80">
+                <div className="flex items-center gap-2">
+                  <Phone size={13} className="text-brand-green-leaf flex-shrink-0" />
+                  <a href="tel:2679731605" className="font-bold hover:text-brand-green-leaf transition-colors">(267) 973-1605</a>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Mail size={13} className="text-brand-green-leaf flex-shrink-0" />
+                  <a href="mailto:Ortizjustin1738@gmail.com" className="hover:text-brand-green-leaf transition-colors truncate">Ortizjustin1738@gmail.com</a>
+                </div>
+                <div className="flex items-start gap-2">
+                  <MapPin size={13} className="text-brand-green-leaf flex-shrink-0 mt-0.5" />
+                  <span>North & Northeast Philadelphia, PA</span>
+                </div>
+                <div className="pt-1 text-[11px] text-brand-green-dark/60">
+                  Mon – Sat: 7:00 AM – 6:00 PM
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div className="flex gap-4">
-            <a 
-              href="https://www.instagram.com/jgreenlandscaping/?hl=en" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              aria-label="Instagram"
-              className="w-10 h-10 border border-brand-green-dark/10 rounded-full flex items-center justify-center hover:bg-brand-green-dark hover:text-white transition-all"
-            >
-              <Instagram size={16} />
-            </a>
+          {/* Bottom sub-footer bar */}
+          <div className="mt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-[11px] text-brand-green-dark/60">
+            <p>© {new Date().getFullYear()} J Green Landscaping. All rights reserved.</p>
+            <div className="flex items-center gap-6">
+              <button 
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
+                className="hover:text-brand-green-dark font-semibold transition-colors cursor-pointer"
+              >
+                Back to Top ↑
+              </button>
+            </div>
           </div>
-        </div>
-        <div className="max-w-7xl mx-auto px-6 mt-16 text-center text-[9px] uppercase tracking-[0.3em] font-bold opacity-20">
-          © 2026 J Green Landscaping. All visual rights reserved.
         </div>
       </footer>
 
