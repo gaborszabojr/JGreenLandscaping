@@ -7,7 +7,7 @@ import {
   Calendar,
   Phone, 
   Mail, 
-  Facebook, 
+  Instagram, 
   Menu, 
   X,
   Star,
@@ -400,8 +400,14 @@ export default function App() {
           </div>
 
           <div className="flex gap-4">
-            <a href="#" className="w-10 h-10 border border-brand-green-dark/10 rounded-full flex items-center justify-center hover:bg-brand-green-dark hover:text-white transition-all">
-              <Facebook size={16} />
+            <a 
+              href="https://www.instagram.com/jgreenlandscaping/?hl=en" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              aria-label="Instagram"
+              className="w-10 h-10 border border-brand-green-dark/10 rounded-full flex items-center justify-center hover:bg-brand-green-dark hover:text-white transition-all"
+            >
+              <Instagram size={16} />
             </a>
           </div>
         </div>
