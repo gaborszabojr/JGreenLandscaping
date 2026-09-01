@@ -18,13 +18,38 @@ import { motion, AnimatePresence } from 'motion/react';
 import { BeforeAfterSlider } from './components/BeforeAfterSlider';
 
 // Import local images for correct Vite asset bundling and routing
-import beforeImg from './before after/IMG_0394.jpeg';
-import afterImg from './before after/IMG_3423.jpeg';
+import beforeImg from './before after/IMG_0419.jpeg';
+import afterImg from './before after/IMG_0421.jpeg';
+import projectImg1 from './before after/IMG_0394.jpeg';
+import projectImg2 from './before after/IMG_3423.jpeg';
+import projectImg3 from './before after/IMG_0432.jpeg';
+import projectImg4 from './before after/IMG_0435.jpeg';
 import pic3 from './before after/Pics/pics 3.jpg';
 import pic4 from './before after/Pics/pics 4.jpg';
 import pic5 from './before after/Pics/pics5.jpg';
 import pic6 from './before after/Pics/pics 6.jpg';
 import pic7 from './before after/Pics/pics7.jpg';
+
+const TRANSFORMATION_SETS = [
+  {
+    title: "Front Garden Makeover",
+    before: beforeImg,
+    after: afterImg,
+    label: "Front Garden Makeover"
+  },
+  {
+    title: "Trimming & Edging",
+    before: projectImg1,
+    after: projectImg2,
+    label: "Trimming & Edging"
+  },
+  {
+    title: "Yard Transformation",
+    before: projectImg3,
+    after: projectImg4,
+    label: "Yard Transformation"
+  }
+];
 
 const SERVICES = [
   {
@@ -62,6 +87,10 @@ const SERVICES = [
 const PORTFOLIO = [
   beforeImg,
   afterImg,
+  projectImg1,
+  projectImg2,
+  projectImg3,
+  projectImg4,
   pic3,
   pic4,
   pic5,
@@ -87,7 +116,7 @@ const TESTIMONIALS = [
   {
     name: "Marcus Miller",
     role: "Homeowner",
-    content: "As a homeowner, finding dependable lawn care is tough. J Green Landscaping is punctual, thorough, and delivers a clean, immaculate finish every single visit.",
+    content: "As a homeowner, finding dependable lawn care is tough. J Philly Landscaping is punctual, thorough, and delivers a clean, immaculate finish every single visit.",
     stars: 5,
     location: "Philadelphia, PA"
   }
@@ -97,6 +126,7 @@ export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isQuoteOpen, setIsQuoteOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeTransformation, setActiveTransformation] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -116,7 +146,7 @@ export default function App() {
           <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
             <div className="flex items-center gap-6">
               <div className="flex flex-col">
-                <span className={`text-2xl font-display font-bold tracking-tighter leading-none ${scrolled ? 'text-white' : 'text-brand-green-dark'}`}>J GREEN LANDSCAPING</span>
+                <span className={`text-2xl font-display font-bold tracking-tighter leading-none ${scrolled ? 'text-white' : 'text-brand-green-dark'}`}>J PHILLY LANDSCAPING</span>
                 <span className={`text-[9px] font-medium uppercase tracking-[0.4em] leading-none mt-1 opacity-60 ${scrolled ? 'text-white' : 'text-brand-green-dark'}`}>Premium Lawn & Landscape Services</span>
               </div>
             </div>
@@ -283,40 +313,83 @@ export default function App() {
       </section>
 
       {/* Portfolio Split Section */}
-      <section id="portfolio" className="bg-brand-green-dark py-32 text-white overflow-hidden organic-grid">
+      <section id="portfolio" className="bg-brand-green-dark py-24 md:py-32 text-white overflow-hidden organic-grid">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
-            <div className="space-y-10 order-2 lg:order-1">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+            <div className="space-y-6 order-2 lg:order-1">
+              {/* Transformation Project Tabs */}
+              <div className="flex items-center gap-3 pb-2 overflow-x-auto">
+                {TRANSFORMATION_SETS.map((tSet, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setActiveTransformation(idx)}
+                    className={`px-4 py-2 rounded-lg text-xs font-semibold tracking-wide transition-all ${
+                      activeTransformation === idx
+                        ? 'bg-brand-green-light text-brand-green-dark shadow-md'
+                        : 'bg-white/10 text-white/70 hover:bg-white/20 hover:text-white'
+                    }`}
+                  >
+                    {tSet.label}
+                  </button>
+                ))}
+              </div>
+
               <BeforeAfterSlider 
-                beforeImage={beforeImg} 
-                afterImage={afterImg} 
+                key={activeTransformation}
+                beforeImage={TRANSFORMATION_SETS[activeTransformation].before} 
+                afterImage={TRANSFORMATION_SETS[activeTransformation].after} 
               />
-            </div>
-            <div className="space-y-10 order-1 lg:order-2">
-              <span className="text-[10px] font-bold uppercase tracking-[0.5em] text-brand-green-light block">Case Study</span>
-              <h2 className="text-6xl md:text-8xl leading-tight italic">Lawn <br />Rebirth.</h2>
-              <p className="text-brand-silver/50 text-lg font-light leading-relaxed max-w-md italic">
-                From patchy, weed-infested ground to a dense, vibrant green estate. We corrected the soil composition, installed premium Bermuda sod, and established an ongoing maintenance schedule that yielded spectacular results.
+              <p className="text-xs text-brand-silver/60 text-center italic">
+                Drag the center slider left and right to inspect the before and after transformation
               </p>
-              <div className="flex gap-12 pt-4">
+            </div>
+
+            <div className="space-y-8 order-1 lg:order-2">
+              <span className="text-[10px] font-bold uppercase tracking-[0.5em] text-brand-green-light block">Case Study</span>
+              <h2 className="text-5xl sm:text-6xl md:text-8xl leading-tight font-display font-bold">
+                Lawn <br /><span className="italic font-normal text-brand-green-light">Rebirth.</span>
+              </h2>
+              <p className="text-brand-silver/70 text-base sm:text-lg font-light leading-relaxed max-w-md">
+                From overgrown weeds and tired turf to a vibrant, crisp lawn with defined borders. We perform thorough hand weeding, precision mowing, structural shrub pruning, and seasonal restoration.
+              </p>
+              <div className="flex gap-12 pt-2 border-t border-white/10">
                 <div>
-                  <p className="text-4xl font-display italic">100+</p>
-                  <p className="text-[10px] uppercase tracking-widest opacity-40 mt-2">Projects Completed</p>
+                  <p className="text-3xl sm:text-4xl font-display font-bold text-brand-green-light">100+</p>
+                  <p className="text-[10px] uppercase tracking-widest text-brand-silver/60 mt-1">Properties Transformed</p>
+                </div>
+                <div>
+                  <p className="text-3xl sm:text-4xl font-display font-bold text-brand-green-light">5.0 ★</p>
+                  <p className="text-[10px] uppercase tracking-widest text-brand-silver/60 mt-1">Homeowner Rated</p>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="mt-28 sm:mt-36 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4">
-            {PORTFOLIO.map((img, i) => (
-              <motion.div 
-                key={i}
-                whileHover={{ y: -8, scale: 1.02 }}
-                className="aspect-square rounded-lg bg-white/5 overflow-hidden border border-white/10 opacity-75 hover:opacity-100 transition-all duration-500 shadow-md hover:shadow-xl cursor-pointer"
-              >
-                <img src={img} className="w-full h-full object-cover transition-transform duration-700 hover:scale-110" alt="Portfolio" />
-              </motion.div>
-            ))}
+          {/* Project Gallery */}
+          <div className="mt-20 sm:mt-28">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 mb-8 border-b border-white/10 pb-4">
+              <div>
+                <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-brand-green-light block">Project Showcase</span>
+                <h3 className="text-2xl sm:text-3xl font-display font-bold text-white">Recent Work & Yard Transformations</h3>
+              </div>
+              <span className="text-xs text-brand-silver/60">{PORTFOLIO.length} Project Highlights</span>
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-11 gap-3 sm:gap-4">
+              {PORTFOLIO.map((img, i) => (
+                <motion.div 
+                  key={i}
+                  whileHover={{ y: -6, scale: 1.03 }}
+                  className="aspect-square rounded-xl bg-white/5 overflow-hidden border border-white/10 opacity-80 hover:opacity-100 transition-all duration-300 shadow-md hover:shadow-2xl cursor-pointer"
+                >
+                  <img 
+                    src={img} 
+                    className="w-full h-full object-cover transition-transform duration-700 hover:scale-110" 
+                    alt={`Portfolio Project ${i + 1}`} 
+                  />
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -428,7 +501,7 @@ export default function App() {
                 width="100%"
                 height="100%"
                 frameBorder="0"
-                title="Book with J Green Landscaping on Calendly"
+                title="Book with J Philly Landscaping on Calendly"
                 className="w-full min-h-[660px] h-full"
               />
             </div>
@@ -443,7 +516,7 @@ export default function App() {
             {/* Col 1: Brand & Overview */}
             <div className="lg:col-span-4 space-y-4">
               <div className="flex flex-col">
-                <span className="text-2xl font-display font-bold tracking-tight text-brand-green-dark">J GREEN LANDSCAPING</span>
+                <span className="text-2xl font-display font-bold tracking-tight text-brand-green-dark">J PHILLY LANDSCAPING</span>
                 <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-brand-green-leaf mt-1">Premium Lawn & Landscape Services</span>
               </div>
               <p className="text-xs text-brand-green-dark/70 leading-relaxed pr-4">
@@ -511,7 +584,7 @@ export default function App() {
 
           {/* Bottom sub-footer bar */}
           <div className="mt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-[11px] text-brand-green-dark/60">
-            <p>© {new Date().getFullYear()} J Green Landscaping. All rights reserved.</p>
+            <p>© {new Date().getFullYear()} J Philly Landscaping. All rights reserved.</p>
             <div className="flex items-center gap-6">
               <button 
                 onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
