@@ -584,7 +584,17 @@ export default function App() {
 
           {/* Bottom sub-footer bar */}
           <div className="mt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-[11px] text-brand-green-dark/60">
-            <p>© {new Date().getFullYear()} J Philly Landscaping. All rights reserved.</p>
+            <p>
+              © {new Date().getFullYear()} J Philly Landscaping. All rights reserved. | Site by{' '}
+              <a 
+                href="https://www.hyzalabs.com/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="font-semibold hover:text-brand-green-leaf transition-colors underline underline-offset-2"
+              >
+                Hyzalabs
+              </a>
+            </p>
             <div className="flex items-center gap-6">
               <button 
                 onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
